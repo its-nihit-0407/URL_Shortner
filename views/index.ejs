@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>URL Shortner</h1>
+    <% if (locals.id) { %>
+        <p>Generated URL: <a href= "http://localhost:8001/url/<%= id %>">http://localhost:8001/url/<%= id %><a> </p>
+    <% } %>
+    <form method="POST" action="/url">
+        <label for="redirectURL">Enter redirectURL : </label>
+        <input type="text" name="url" placeholder="https://www.example.com" required>
+        <button type="submit">Create URL</button>
+    </form>
+
+    <br>
+    <table>
+        <thead>
+            <th>S.No</th>
+            <th>ShortID</th>
+            <th>redirectURL</th>
+            <th>shortURL</th>
+            <th>cLicks</th>
+            <% if (locals.path === "/urls") { %>
+                <th>CreateBy</th>
+            <% } %>
+        </thead>
+        <tbody>
+            <% if (locals.urls) { %>
+                <% urls.forEach((url, index) => { %>
+                    <tr style="text-align: center;">
+                        <td><%= index+1 %></td>
+                        <td><%= url.shortid %></td>
+                        <td><a href= "<%=url.redirectUrl  %>">redirectURL</td>
+                        <td><a href= "http://localhost:8001/url/<%= url.shortid %>">Shorturl<%= url.shortid%></td>
+                        <td><%= url.visitHistory.length %></td>
+                        <% if (locals.path === "/urls") { %>
+                            <td><%= url.createdby %></td>
+                        <% } %>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+
+</body>
+</html>

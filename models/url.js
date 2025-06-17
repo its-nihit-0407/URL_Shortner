@@ -15,7 +15,11 @@ const urlSchema = new mongoose.Schema({
                 type: Number
             }
         } 
-    ]
+    ],
+    createdby: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    }
 }, {timestamps: true})
 
 const URL = mongoose.model("url_shortner", urlSchema)
